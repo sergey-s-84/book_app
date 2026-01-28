@@ -1,0 +1,60 @@
+# ======================
+# OS
+# ======================
+.DS_Store
+Thumbs.db
+
+# ======================
+# IDE
+# ======================
+.idea/
+.vscode/
+*.iml
+
+# ======================
+# Composer
+# ======================
+/www/vendor/
+/www/composer.lock
+
+# ======================
+# Yii2 runtime & assets
+# ======================
+/www/runtime/*
+!/www/runtime/.gitkeep
+
+/www/web/assets/*
+!/www/web/assets/.gitkeep
+
+# ======================
+# Logs
+# ======================
+*.log
+
+# ======================
+# Local configs (secrets)
+# ======================
+/www/config/db.php
+/www/config/params-local.php
+
+# ======================
+# Docker
+# ======================
+docker/mysql/data/
+docker/mysql/logs/
+
+# ======================
+# Tests output
+# ======================
+/www/tests/_output/
+
+# ======================
+# Temp / cache
+# ======================
+.cache/
+tmp/
+
+# ======================
+# Vagrant
+# ======================
+.vagrant/

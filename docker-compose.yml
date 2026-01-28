@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+    # PHP-FPM Service
+    php:
+        build:
+            context: ./docker/php
+            dockerfile: Dockerfile
+        # Mount the current directory into the container for development
+        volumes:
+            - ./www:/var/www/html
+        ports:
+            - "9000:9000"
+        environment:
+            # Optional: Set environment variables for PHP here
+            # For example, to set timezone or memory limit
+            PHP_IDE_CONFIG: "serverName=docker-yii2"
+        # Link to the MySQL service
+        depends_on:
+            - mysql
+
+    # Nginx Service
+    nginx:
+        image: nginx:stable-alpine
+        ports:
+            - "8080:80"
+        volumes:
+            # Mount Nginx configuration
+            - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+            # Mount the web application code
+            - ./www:/var/www/html
+        # Link to the PHP-FPM service
+        depends_on:
+            - php
+
+    # MySQL Service
+    mysql:
+        image: mysql:8.0
+        ports:
+            - "3306:3306"
+        environment:
+            # Set MySQL root password and database for Yii2
+            MYSQL_ROOT_PASSWORD: root_password
+            MYSQL_DATABASE: yii2_db
+            MYSQL_USER: user
+            MYSQL_PASSWORD: password
+        volumes:
+            # Persist MySQL data
+            - dbdata:/var/lib/mysql
+        # Optional: You can add command to initialize a database if needed
+        # command: --default-authentication-plugin=mysql_native_password
+
+# Define named volumes for persistent data
+volumes:
+    dbdata:
