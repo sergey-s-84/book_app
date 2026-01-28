@@ -17,8 +17,12 @@
    
    docker-compose exec php composer install
 
+5. Переименовываем файл настроек БД
 
-5. Применяем миграции
+   www/config/db.php.example --> www/config/db.php
+
+
+6. Применяем миграции
     
    docker-compose exec php php yii migrate
 
